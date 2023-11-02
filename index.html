@@ -5,11 +5,16 @@
     <meta http-equiv="cache-control" content="no-cache">
 </head>
 <body>
-    <script>
-        var dynamicValue = prompt("Enter SAP order or outbound delivery to display:");
+    <form id="sapForm" onsubmit="return submitForm();">
+        <label for="sapInput">Enter SAP order or outbound delivery to display:</label>
+        <input type="text" id="sapInput" required>
+        <button type="submit">Search</button>
+    </form>
 
-        if (dynamicValue !== null) {
-            dynamicValue = dynamicValue.trim(); // Remove leading/trailing spaces
+    <script>
+        function submitForm() {
+            var dynamicValue = document.getElementById("sapInput").value.trim();
+
             if (dynamicValue.length === 8 && !isNaN(dynamicValue)) {
                 // Assuming 8-digit value is an Outbound Delivery
                 window.location.href = "https://vhsibgwplb.hec.sibelco.com/sap/bc/ui2/flp?sap-client=200&sap-language=EN&spnego=disabled#OutboundDelivery-displayInWebGUI?OutboundDelivery=" + dynamicValue;
@@ -19,8 +24,9 @@
             } else {
                 alert("Invalid input. Please enter an 8-digit Outbound Delivery or a 6-digit Sales Order.");
             }
+
+            return false; // Prevent the form from actually submitting
         }
     </script>
 </body>
 </html>
-

@@ -3,11 +3,27 @@
 <head>
     <title>SAP Display</title>
     <meta http-equiv="cache-control" content="no-cache">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            text-align: center;
+        }
+        #sapInput {
+            width: 200px;
+            padding: 5px;
+        }
+    </style>
 </head>
 <body>
     <form id="sapForm" onsubmit="return submitForm();">
         <label for="sapInput">Enter SAP order or outbound delivery to display:</label>
-        <input type="text" id="sapInput" required>
+        <input type="text" id="sapInput" required autofocus>
         <button type="submit">Search</button>
     </form>
 

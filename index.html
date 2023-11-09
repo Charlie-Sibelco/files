@@ -7,12 +7,13 @@
         body {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Align to the top */
             height: 100vh;
             margin: 0;
         }
         form {
             text-align: center;
+            margin-top: 50px; /* Adjust the margin-top to your liking */
         }
         #sapInput {
             width: 200px;
@@ -23,8 +24,8 @@
 <body>
     <form id="sapForm" onsubmit="return submitForm();">
         <label for="sapInput">Enter SAP order or outbound delivery to display:</label>
-        <br>
-        <input type="text" id="sapInput" required autofocus>
+        <br><br>
+        <input type="text" id="sapInput" required autofocus oninput="removeSpaces(this)">
         <button type="submit">Search</button>
     </form>
 
@@ -33,16 +34,18 @@
             var dynamicValue = document.getElementById("sapInput").value.trim();
 
             if (dynamicValue.length === 8 && !isNaN(dynamicValue)) {
-                // Assuming 8-digit value is an Outbound Delivery
                 window.location.href = "https://vhsibgwplb.hec.sibelco.com/sap/bc/ui2/flp?sap-client=200&sap-language=EN&spnego=disabled#OutboundDelivery-displayInWebGUI?OutboundDelivery=" + dynamicValue;
             } else if (dynamicValue.length === 6 && !isNaN(dynamicValue)) {
-                // Assuming 6-digit value is a Sales Order
                 window.location.href = "https://vhsibgwplb.hec.sibelco.com/sap/bc/ui2/flp?sap-client=200&sap-language=EN&spnego=disabled#SalesOrder-display?%2524.basicSearch=&SalesOrder=" + dynamicValue;
             } else {
                 alert("Invalid input. Please enter an 8-digit Outbound Delivery or a 6-digit Sales Order.");
             }
 
             return false; // Prevent the form from actually submitting
+        }
+
+        function removeSpaces(input) {
+            input.value = input.value.replace(/\s/g, ''); // Remove white spaces
         }
     </script>
 </body>
